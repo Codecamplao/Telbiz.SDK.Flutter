@@ -1,6 +1,6 @@
-# telbiz_sdk
+# Telbiz
 
-Telbiz SDK for [Flutter](https://flutter.io) package to provider telgo service in Laos, developed by Telbiz.
+Telbiz SDK for [Flutter](https://flutter.io) package to provide telgo service in Laos (SMS and Topup), developed by Telbiz.
 
 ## Installation
 
@@ -8,7 +8,7 @@ add the following code to your `pubspec.yaml` :
 
 ```yaml
 dependencies:
-  telbiz_sdk: ^0.0.1
+  telbiz: ^0.0.4
 ```
 
 ## Usage
@@ -16,27 +16,42 @@ dependencies:
 import the package
 
 ```dart
-import 'package:telbiz_sdk/telbiz_sdk.dart';
+import 'package:telbiz/telbiz.dart';
 ```
 
-For SMS Service please enter title, phone and message. If there is error it will return null 
+For SMS Service please enter clientID, secret, title, phone and message (accessToken parameter for Telbiz developer only)
 
 ```dart
-Future<String?> smsService() async{
+Future<String> smsService() async{
+  String clientID = 'XXXXX253832870000';
+  String secret = 'b266ef94-bb18-4ff2-8f38-e358f130XXXX';
   TelbizSMSTitle smsTitle = TelbizSMSTitle.Default; // Telbiz
   String phoneNumber = '2055554444'; // Phone number must be start with 20 or 30
   String message = 'Hello from Telbiz';
-  return await TelbizSDK.smsService(smsTitle, phoneNumber, message);
+  try{
+    return await Telbiz.smsService(clientID, secret, smsTitle, phoneNumber, message);
+  }
+  catch(e){
+    rethrow;
+  }
 }
 ```
 
-For Top-Up Service please enter phone number and amount. If there is error it will return null 
-Note: Topup function SendTopupAsync Amount be at least 5000
+For Top-Up Service please enter clientID, secret, phone number and amount (accessToken parameter for Telbiz developer only)
+##Note: Topup function SendTopupAsync Amount be at least 5000
 
 ```dart
-Future<String?> topUpService() async{
+Future<String> topUpService() async{
+  String clientID = 'XXXXX253832870000';
+  String secret = 'b266ef94-bb18-4ff2-8f38-e358f130XXXX';
   String phoneNumber = '2055554444'; // Phone number must be start with 20 or 30
   String amount = '5000';
-  return await TelbizSDK.topUpService(phoneNumber, amount);
+  try{
+    return await Telbiz.topUpService(clientID, secret, phoneNumber, amount);
+  }
+  catch(e){
+    rethrow;    
+  }
+  
 }
 ```

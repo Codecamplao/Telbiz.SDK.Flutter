@@ -1,86 +1,79 @@
 import 'dart:convert';
-import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 import '../constant/api_path.dart';
 import '../constant/data.dart';
 import '../models/connect_token_model.dart';
 
-Future<ConnectTokenModel?> connectToken() async {
+Future<ConnectTokenModel> connectToken(String clientID, String secret) async {
   String url = TelbizAPIPath.CONNECT_TOKEN;
   String payload = jsonEncode({
-    'clientID': TelbizData.clientID,
-    'secret': TelbizData.secret,
+    'clientID': clientID,
+    'secret': secret,
     'grantType': TelbizData.grantType,
     'scope': TelbizData.scope
   });
   try {
-    var response = await Dio().post(url,
-        options: Options(headers: {
-          'accept': 'text/plain',
-          'Content-Type': 'application/json'
-        }),
-        data: payload);
+    var response = await http.post(Uri.parse(url),
+        headers: {'accept': 'text/plain', 'Content-Type': 'application/json'},
+        body: payload);
     if (response.statusCode == 200) {
       ConnectTokenModel connectTokenModel =
-          connectTokenModelFromJson(response.data);
+          connectTokenModelFromJson(response.body);
       return connectTokenModel;
     } else {
-      return null;
+      throw Exception(response.body);
     }
   } catch (e) {
-    return await connectTokenExceptionOne();
+    return await connectTokenExceptionOne(clientID, secret);
   }
 }
 
-Future<ConnectTokenModel?> connectTokenExceptionOne() async {
+Future<ConnectTokenModel> connectTokenExceptionOne(
+    String clientID, String secret) async {
   String url = TelbizAPIPath.CONNECT_TOKEN;
   String payload = jsonEncode({
-    'clientID': TelbizData.clientID,
-    'secret': TelbizData.secret,
+    'clientID': clientID,
+    'secret': secret,
     'grantType': TelbizData.grantType,
     'scope': TelbizData.scope
   });
   try {
-    var response = await Dio().post(url,
-        options: Options(headers: {
-          'accept': 'text/plain',
-          'Content-Type': 'application/json'
-        }),
-        data: payload);
+    var response = await http.post(Uri.parse(url),
+        headers: {'accept': 'text/plain', 'Content-Type': 'application/json'},
+        body: payload);
     if (response.statusCode == 200) {
       ConnectTokenModel connectTokenModel =
-          connectTokenModelFromJson(response.data);
+          connectTokenModelFromJson(response.body);
       return connectTokenModel;
     } else {
-      return null;
+      throw Exception(response.body);
     }
   } catch (e) {
-    return await connectTokenExceptionTwo();
+    return await connectTokenExceptionTwo(clientID, secret);
   }
 }
 
-Future<ConnectTokenModel?> connectTokenExceptionTwo() async {
+Future<ConnectTokenModel> connectTokenExceptionTwo(
+    String clientID, String secret) async {
   String url = TelbizAPIPath.CONNECT_TOKEN;
   String payload = jsonEncode({
-    'clientID': TelbizData.clientID,
-    'secret': TelbizData.secret,
+    'clientID': clientID,
+    'secret': secret,
     'grantType': TelbizData.grantType,
     'scope': TelbizData.scope
   });
   try {
-    var response = await Dio().post(url,
-        options: Options(headers: {
-          'accept': 'text/plain',
-          'Content-Type': 'application/json'
-        }),
-        data: payload);
+    var response = await http.post(Uri.parse(url),
+        headers: {'accept': 'text/plain', 'Content-Type': 'application/json'},
+        body: payload);
     if (response.statusCode == 200) {
       ConnectTokenModel connectTokenModel =
-          connectTokenModelFromJson(response.data);
+          connectTokenModelFromJson(response.body);
       return connectTokenModel;
     } else {
-      return null;
+      throw Exception(response.body);
     }
   } catch (e) {
-    return null;
+    rethrow;
   }
 }

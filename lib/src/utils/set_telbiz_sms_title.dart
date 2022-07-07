@@ -1,6 +1,6 @@
 
 
-import '../telbiz_sdk.dart';
+import '../telbiz.dart';
 
 String setTelbizSMSTitle(TelbizSMSTitle smsTitle){
   if(smsTitle == TelbizSMSTitle.Default){
