@@ -8,7 +8,7 @@ add the following code to your `pubspec.yaml` :
 
 ```yaml
 dependencies:
-  telbiz: ^0.0.4
+  telbiz: ^0.0.5
 ```
 
 ## Usage

@@ -1,6 +1,6 @@
 name: telbiz
 description: Provider telgo service in Laos.
-version: 0.0.4
+version: 0.0.5
 homepage: https://github.com/Codecamplao/Telbiz.SDK.Flutter.git
 
 environment:
